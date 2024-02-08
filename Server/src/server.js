@@ -19,24 +19,15 @@ const setupServer = () => {
     app.use(express.json());
     app.use(cors());
     
-    
-    
+
     app.get("/", (req, res) => {
         res.status(200).send("I am up and running!");
     });
 
 
-
-
-
-
-
-
-
-
-
     // User Routes
     app.get("/users", usersController.index);
+    app.post("/users", usersController.newUser);
 
     return app;
 }
