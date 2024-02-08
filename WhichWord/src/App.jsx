@@ -15,7 +15,7 @@ function App() {
     if (view === "MainMenu")
       setViewHTML(<MainMenu setView={setView} />);
     else if (view === "BaseQuestion")
-      setViewHTML(<BaseQuestion setScore={setScore} setView={setView} />);
+      setViewHTML(<BaseQuestion setScore={setScore} view={view} setView={setView} />);
     else
       setViewHTML(<ScoreScreen score={score} setScore={setScore} setView={setView} />);
   }, [view])
