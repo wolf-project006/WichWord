@@ -3,17 +3,12 @@ const knex = require('../knex');
 const app = express();
 const cors = require('cors');
 
-
-
+// BCrypt Imports
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 // Controllers 
 const usersController = require("./users/users.controller");
-
-
-
-
-
-
 
 const setupServer = () => {
     app.use(express.json());
@@ -23,6 +18,16 @@ const setupServer = () => {
     app.get("/", (req, res) => {
         res.status(200).send("I am up and running!");
     });
+
+
+    
+
+
+
+
+
+
+
 
 
     // User Routes

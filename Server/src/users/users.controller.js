@@ -1,4 +1,5 @@
 const usersModel = require("./users.model");
+const bcrypt = require('bcrypt');
 
 
 
@@ -16,11 +17,31 @@ module.exports = {
         const {
             user_name,
             nick_name,
+            password,
         } = req.body;
 
+
+        const saltRounds = 10;
+
+        //let hashedPassword ="hello";
+
+        // const passwordHasher = bcrypt.genSalt(saltRounds, function(err, salt) {
+        //     bcrypt.hash(password, salt, function(err, hash) {
+        //         hashedPassword = hash;
+        //         console.log(hash);
+        //         return hashedPassword;
+        //     });
+        // });
+
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        console.log(hashedPassword);
         const payload = {
             user_name: user_name,
             nick_name: nick_name,
+            hashed_password: hashedPassword,
+            salt: salt
         };
 
         let user;
