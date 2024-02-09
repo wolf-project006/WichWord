@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import MainMenu from './components/MainMenu';
 import BaseQuestion from './components/BaseQuestion';
@@ -15,7 +15,7 @@ function App() {
     if (view === "MainMenu")
       setViewHTML(<MainMenu setView={setView} />);
     else if (view === "BaseQuestion")
-      setViewHTML(<BaseQuestion setScore={setScore} view={view} setView={setView} />);
+      setViewHTML(<BaseQuestion setScore={setScore} setView={setView} />);
     else
       setViewHTML(<ScoreScreen score={score} setScore={setScore} setView={setView} />);
   }, [view])

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import '../App.css';
 
-const BaseQuestion = ({ setScore, setView, view }) => {
+const BaseQuestion = ({ setScore, setView }) => {
 
   const [answer, setAnswer] = useState(""); // Player answer
   const [headAndTail, setHeadAndTail] = useState([]);
   const [timeLeft, setTimeLeft] = useState(10);
-  const [inputStyle, setInputStyle] = useState({
+  const [inputStyle, setInputStyle] = useState({ // Setting up the styling here so we can dynamically change the input field width
     width: `${answer.length}ch`,
     fontSize: "3em",
     border: "none",
@@ -47,7 +47,6 @@ const BaseQuestion = ({ setScore, setView, view }) => {
   }, [timeLeft]);
 
   async function gameOver() {
-    console.log("HEAD AND TAIL", headAndTail);
     const answerToFetch = (headAndTail[0] + answer + headAndTail[1]).toLowerCase();
     const result = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${answerToFetch}`);
     const parsedResult = await result.json();
