@@ -14,8 +14,8 @@ function App() {
   useEffect(() => {
     if (view === "MainMenu")
       setViewHTML(<MainMenu setView={setView} />);
-    else if (view === "BaseQuestion")
-      setViewHTML(<BaseQuestion setScore={setScore} setView={setView} />);
+    else if (view === "BaseQuestion1")
+      setViewHTML(<BaseQuestion score={score} setScore={setScore} view={view} setView={setView} />);
     else
       setViewHTML(<ScoreScreen score={score} setScore={setScore} setView={setView} />);
   }, [view])

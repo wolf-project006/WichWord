@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../App.css';
 
-const BaseQuestion = ({ setScore, setView }) => {
+const BaseQuestion = ({ score, setScore, view, setView }) => {
 
   const [answer, setAnswer] = useState(""); // Player answer
   const [headAndTail, setHeadAndTail] = useState([]);
@@ -53,7 +53,7 @@ const BaseQuestion = ({ setScore, setView }) => {
 
     // If word exists
     if (parsedResult[0] && parsedResult[0]["word"]) {
-      const points = answer.length;
+      const points = score + answer.length;
       setScore(points);
     }
 
