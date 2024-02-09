@@ -5,12 +5,12 @@
   text-align: center;
 }
 
-#playerAnswer {
+/* #playerAnswer {
   width: fit-content;
   font-size: 3em;
   border: none;
   color: cadetblue;
-}
+} */
 
 .letter {
   display: inline;

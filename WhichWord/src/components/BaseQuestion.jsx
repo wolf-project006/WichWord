@@ -6,6 +6,12 @@ const BaseQuestion = ({ setScore, setView, view }) => {
   const [answer, setAnswer] = useState(""); // Player answer
   const [headAndTail, setHeadAndTail] = useState([]);
   const [timeLeft, setTimeLeft] = useState(10);
+  const [inputStyle, setInputStyle] = useState({
+    width: `${answer.length}ch`,
+    fontSize: "3em",
+    border: "none",
+    color: "cadetblue"
+  });
 
   const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
@@ -18,9 +24,16 @@ const BaseQuestion = ({ setScore, setView, view }) => {
     setHeadAndTail(newArr);
   }, []);
 
+  // Change width of input dynamically
+  useEffect(() => {
+    const newInputStyle = { ...inputStyle };
+    newInputStyle["width"] = (answer.length <= 0) ? `${answer.length + 1}ch` : `${answer.length}ch`;
+    setInputStyle(newInputStyle);
+  }, [answer])
+
   useEffect(() => {
     // Exit when time is up
-    if (timeLeft <= 0) {
+    if (timeLeft === 0) {
       gameOver();
     };
 
@@ -53,10 +66,9 @@ const BaseQuestion = ({ setScore, setView, view }) => {
       <p>{timeLeft}</p>
       <div>
         <h1 className="letter">{headAndTail[0]}</h1>
-        <input id="playerAnswer" type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
+        <input id="playerAnswer" type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} style={inputStyle} />
         <h1 className="letter">{headAndTail[1]}</h1>
       </div>
-      {/* <button onClick={handleOnClick} >Submit</button> */}
     </>
   );
 }
