@@ -17,7 +17,8 @@ app.get("/", (req, res) => {
 });
 
 const PlainPassword = "987654321gujiaxian";
-let hashedPassword = "";
+let hashedPassword1 = "$2b$10$sfD0j8LUCLZpE0AX8kvt.OamfiXsnDPlUAExeJ4oweGg4O/5FfTzq";
+let hashedPassword2 = "$2b$10$rRwN8zxVGBu/le69s1y7CO6ZMbqnO1gRVtThbIAt2PFD3Pq4blvdu";
 
 app.get("/password", async(req, res) => {
     //below are the code to make hashed password.
@@ -26,6 +27,7 @@ app.get("/password", async(req, res) => {
             console.log(hash);
             res.status(200).send(hash);
             hashedPassword = hash;
+            
         });
     });
 })
@@ -34,8 +36,8 @@ app.get("/password", async(req, res) => {
 app.get("/password/compare", async(req, res) => {
     // below are function used to check if the password is correct when user login.
     // compare the PlainPassword, which is the password user input, with hashedPassword.
-    bcrypt.compare(PlainPassword, hashedPassword, function(err, result) {
-        console.log(hashedPassword)
+    bcrypt.compare(PlainPassword, hashedPassword1, function(err, result) {
+        console.log(hashedPassword2)
         res.status(200).send(result);
     });
 })
