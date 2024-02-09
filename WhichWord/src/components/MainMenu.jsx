@@ -3,7 +3,7 @@ import React from "react";
 const MainMenu = ({ setView }) => {
 
   function handleOnClick() {
-    setView("BaseQuestion");
+    setView("BaseQuestion1");
   }
 
   return (
