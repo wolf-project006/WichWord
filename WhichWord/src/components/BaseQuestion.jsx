@@ -13,8 +13,9 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
     color: "cadetblue"
   });
 
-  const weightedAlphabet ="qjzxvkwyfbghmpduclsntoirae";
-  const alphabetWeights =[1,2,3,4,9,15,22,31,40,51,64,79,94,110,127,146,169,196,225,259,294,331,370,409,452,509];
+  const weightedHead ="qjzxvkwyfbghmpduclsntoiraewpfmcosiat";
+  const weightedTail ="qjzxvkwyfbghmpduclsntoiraefloryntdse";
+  const alphabetWeights =[1,2,3,4,9,15,22,31,40,51,64,79,94,110,127,146,169,196,225,259,294,331,370,409,452,509,559,609,659,709,759,809,859,909,959,1009];
   const maxCumulativeWeight = alphabetWeights[alphabetWeights.length-1];
 
   function weightedRandomItems(items,weights){
@@ -30,8 +31,8 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
 
   // Set head and tail letters
   useEffect(() => {
-    const head = weightedRandomItems(weightedAlphabet,alphabetWeights);
-    const tail = weightedRandomItems(weightedAlphabet,alphabetWeights);
+    const head = weightedRandomItems(weightedHead,alphabetWeights);
+    const tail = weightedRandomItems(weightedTail,alphabetWeights);
     const newArr = [head, tail];
 
     setHeadAndTail(newArr);
