@@ -5,6 +5,13 @@
   text-align: center;
 }
 
+#playerAnswer {
+  width: fit-content;
+  font-size: 3em;
+  border: none;
+  color: cadetblue;
+}
+
 .letter {
   display: inline;
 }

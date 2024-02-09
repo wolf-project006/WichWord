@@ -5,6 +5,7 @@ const BaseQuestion = ({ setScore, setView, view }) => {
 
   const [answer, setAnswer] = useState(""); // Player answer
   const [headAndTail, setHeadAndTail] = useState([]);
+  const [timeLeft, setTimeLeft] = useState(10);
 
   const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
@@ -17,8 +18,22 @@ const BaseQuestion = ({ setScore, setView, view }) => {
     setHeadAndTail(newArr);
   }, []);
 
+  useEffect(() => {
+    // Exit when time is up
+    if (timeLeft <= 0) {
+      gameOver();
+    };
 
-  async function handleOnClick() {
+    const interval = setInterval(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+
+    // clear interval on re-render to avoid memory leaks
+    return () => clearInterval(interval);
+    // Run effect everytime timeLeft changes
+  }, [timeLeft]);
+
+  async function gameOver() {
     console.log("HEAD AND TAIL", headAndTail);
     const answerToFetch = (headAndTail[0] + answer + headAndTail[1]).toLowerCase();
     const result = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${answerToFetch}`);
@@ -33,28 +48,15 @@ const BaseQuestion = ({ setScore, setView, view }) => {
     setView("ScoreScreen");
   }
 
-  // async function handleOnClick() {
-  //   const answerToFetch = (heandAndTail[0] + answer + heandAndTail[1]).toLowerCase();
-  //   const result = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${answerToFetch}`);
-  //   const parsedResult = await result.json();
-
-  //   // If word exists
-  //   if (parsedResult[0] && parsedResult[0]["word"]) {
-  //     const points = answer.length;
-  //     setScore(points);
-  //   }
-
-  //   setView("ScoreScreen");
-  // }
-
   return (
     <>
+      <p>{timeLeft}</p>
       <div>
         <h1 className="letter">{headAndTail[0]}</h1>
-        <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
+        <input id="playerAnswer" type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
         <h1 className="letter">{headAndTail[1]}</h1>
       </div>
-      <button onClick={handleOnClick} >Submit</button>
+      {/* <button onClick={handleOnClick} >Submit</button> */}
     </>
   );
 }
