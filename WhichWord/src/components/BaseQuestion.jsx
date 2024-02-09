@@ -13,12 +13,25 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
     color: "cadetblue"
   });
 
-  const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+  const weightedAlphabet ="qjzxvkwyfbghmpduclsntoirae";
+  const alphabetWeights =[1,2,3,4,9,15,22,31,40,51,64,79,94,110,127,146,169,196,225,259,294,331,370,409,452,509];
+  const maxCumulativeWeight = alphabetWeights[alphabetWeights.length-1];
+
+  function weightedRandomItems(items,weights){
+
+    const randomNumber = maxCumulativeWeight * Math.random();
+    
+        for (let i = 0; i < items.length; i++){
+            if(weights[i]>= randomNumber){
+                return items[i]
+            }
+        }
+    }
 
   // Set head and tail letters
   useEffect(() => {
-    const head = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
-    const tail = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+    const head = weightedRandomItems(weightedAlphabet,alphabetWeights);
+    const tail = weightedRandomItems(weightedAlphabet,alphabetWeights);
     const newArr = [head, tail];
 
     setHeadAndTail(newArr);
