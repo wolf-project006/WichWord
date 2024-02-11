@@ -49,6 +49,7 @@ const setupServer = () => {
     // User Routes
     app.get("/", usersController.homePage);
     app.get("/highest_users", usersController.getHighestUsers);
+    app.post("/signup", usersController.signup);
     // app.get("/users", usersController.index);
     // app.post("/users", usersController.newUser);
     // app.post("/login", usersController.login);
