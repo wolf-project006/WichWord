@@ -6,6 +6,9 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
   const [answer, setAnswer] = useState(""); // Player answer
   const [headAndTail, setHeadAndTail] = useState([]);
   const [timeLeft, setTimeLeft] = useState(10);
+
+  const FINAL_ROUND = 5;
+
   const [inputStyle, setInputStyle] = useState({ // Setting up the styling here so we can dynamically change the input field width
     width: `${answer.length}ch`,
     fontSize: "3em",
@@ -74,16 +77,16 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
     }
 
     let round = parseInt(view.slice(-1));
-    if (round === 5) {
+    if (round === FINAL_ROUND)
       setView("ScoreScreen");
-    }
     else {
-      round++;
+      round += 1;
       setView(`BaseQuestion${round}`);
-      setAnswer("");
-      setTimeLeft(10);
     }
+    setAnswer("");
+    setTimeLeft(10);
   }
+
 
   return (
     <>
@@ -95,6 +98,6 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
       </div>
     </>
   );
-}
 
+}
 export default BaseQuestion;
