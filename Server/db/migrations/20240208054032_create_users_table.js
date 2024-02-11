@@ -5,8 +5,8 @@
 exports.up = function(knex) {
     return knex.schema.createTable("users", function(table) {
         table.increments("id").primary();
-        table.string("user_name", 255);
-        table.string("nick_name", 255);
+        table.string("user_name", 255).unique();
+        table.string("nick_name", 255).unique();
         table.text("hashed_password");
         table.text("salt");
         table.integer("highest_score");
