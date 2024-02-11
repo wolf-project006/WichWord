@@ -1,6 +1,7 @@
-const usersModel = require("./users.model");
+// const usersModel = require("./users.model");
 const bcrypt = require('bcrypt');
-
+const knex = require('../../knex');
+const TABLE_NAME = 'users';
 
 
 // API endpoint logic goes in this file. 
@@ -9,6 +10,16 @@ module.exports = {
     // Displays the home page
     async homePage(req, res) {
         res.status(200).send("connect success!!!woooooooo!");
+    },
+
+    async getHighestUsers(req, res) {
+        const highestUsers = await knex.select({
+            id: 'id',
+            userName: 'user_name',
+            highestScore: 'highest_score'
+        }).from(TABLE_NAME);
+        highestUsers.sort((a, b) => b.highestScore - a.highestScore);
+        res.status(200).send(highestUsers);
     },
 
     // Displays list of users

@@ -9,7 +9,7 @@ const saltRounds = 10;
 const session = require('express-session');
 
 // Controllers 
-const usersController = require("./users/usersDemo/users.controller");
+const usersController = require('./usersDemo/users.controller.js');
 
 const setupServer = () => {
     app.use(express.json());
@@ -31,9 +31,9 @@ const setupServer = () => {
         },
     ];
 
-    app.get("/", (req, res) => {
-        res.status(200).send("I am up and running!");
-    });
+    // app.get("/", (req, res) => {
+    //     res.status(200).send("I am up and running!");
+    // });
 
 
 
@@ -47,10 +47,11 @@ const setupServer = () => {
 
 
     // User Routes
-    app.get("/", usersController.homePage)
-    app.get("/users", usersController.index);
-    app.post("/users", usersController.newUser);
-    app.post("/login", usersController.login);
+    app.get("/", usersController.homePage);
+    app.get("/highest_users", usersController.getHighestUsers);
+    // app.get("/users", usersController.index);
+    // app.post("/users", usersController.newUser);
+    // app.post("/login", usersController.login);
 
     return app;
 }
