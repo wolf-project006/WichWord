@@ -33,7 +33,7 @@ $ npm run dev
 
 ## Authors
 
-[@JiaxianGu](https://github.com/JiaxianGu)
-[@RH-Kevin](https://github.com/RH-Kevin)
-[@ShizuokaTerrier](https://github.com/ShizuokaTerrier)
-[@yurikahirata](https://github.com/yurikahirata)
+* [@JiaxianGu](https://github.com/JiaxianGu)
+* [@RH-Kevin](https://github.com/RH-Kevin)
+* [@ShizuokaTerrier](https://github.com/ShizuokaTerrier)
+* [@yurikahirata](https://github.com/yurikahirata)
