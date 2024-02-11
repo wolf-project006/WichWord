@@ -12,6 +12,14 @@
   color: cadetblue;
 } */
 
+.orange {
+  color: #EF8354;
+}
+
+input:focus {
+  outline-color: #EF8354;
+}
+
 .letter {
   display: inline;
 }

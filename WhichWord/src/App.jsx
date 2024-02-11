@@ -10,13 +10,14 @@ function App() {
   const [viewHTML, setViewHTML] = useState(<></>); // What is rendered
 
   const [score, setScore] = useState(0);
-  const [personalBest, setPersonalBest] = useState(0);
+  // const [username, setUsername] = useState("");
+  //const [personalBest, setPersonalBest] = useState(0);
 
-  // Fetching user's personal
+  // Fetching user data --> move to after login/create account screen
   // useEffect(() => {
   //   const getPersonalBest = await fetch("/highscore/username");
   //   setPersonalBest(getPersonalBest);
-  // })
+  // }, [])
 
   const components = {
     MainMenu: () => { return <MainMenu setView={setView} /> },
