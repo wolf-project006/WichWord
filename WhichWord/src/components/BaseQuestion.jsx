@@ -13,7 +13,7 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
     width: `${answer.length}ch`,
     fontSize: "3em",
     border: "none",
-    color: "cadetblue"
+    color: "#EF8354"
   });
 
   const weightedHead = "qjzxvkwyfbghmpduclsntoiraewpfmcosiat";

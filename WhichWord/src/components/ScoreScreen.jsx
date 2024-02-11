@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import '../App.css';
 
 const ScoreScreen = ({ score, setScore, setView }) => {
 
@@ -9,8 +10,8 @@ const ScoreScreen = ({ score, setScore, setView }) => {
 
   return (
     <>
-      <h1>Score:</h1>
-      <h2>{score}</h2>
+      <h2 className="orange">Score:</h2>
+      <h1>{score}</h1>
       <button onClick={handleOnClick}>Start over</button>
     </>
   );
