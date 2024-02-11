@@ -50,13 +50,34 @@ module.exports = {
     },
 
     // Authenticates User
+
     async login(req, res) {
-        const user = await authenticateUser(req.body.name, req.body.plainPassword);
-        if(user) {
-            req.session.userId = user.id;
-            res.redirect("/profilePage");
-        } else {
-            res.status(401).send('Authentication failed');
+        const {
+            user_name,
+            password,
+        } = req.body;
+
+
+        const saltRounds = 10;
+
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const payload = {
+            user_name: user_name,
+            hashed_password: hashedPassword,
+        };
+
+        let user;
+
+        
+        try {
+            user = await usersModel.loginUser(payload);
+            res.status(200).send(user);
+        } catch (error) {
+            console.log(error);
+            
         }
-    }
+
+    },
 }

@@ -22,5 +22,18 @@ module.exports = {
     addNewUser(user) {
         return knex.insert(user).into(USERS_TABLE);
 
+    },
+
+    // "user" is the payload seen in controller
+    loginUser(user) {
+        return knex.select('*').where('user_name', user.user_name).andWhere('hashed_password', user.password).then(rows => {
+            if (rows.length > 0) {
+                console.log("User found");
+            } else {
+                console.log("User not found");
+            }
+        }).catch(error => {
+            console.error(error);
+        })
     }
 }
