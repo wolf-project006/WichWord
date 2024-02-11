@@ -48,6 +48,16 @@ module.exports = {
             console.log(error);
             // Display error to user ("... username taken / nickname taken")
         }
+    },
 
+    // Authenticates User
+    async login(req, res) {
+        const user = await authenticateUser(req.body.name, req.body.plainPassword);
+        if(user) {
+            req.session.userId = user.id;
+            res.redirect("/profilePage");
+        } else {
+            res.status(401).send('Authentication failed');
+        }
     }
 }
