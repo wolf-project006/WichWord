@@ -9,7 +9,7 @@ const saltRounds = 10;
 const session = require('express-session');
 
 // Controllers 
-const usersController = require("./users/users.controller");
+const usersController = require("./users/usersDemo/users.controller");
 
 const setupServer = () => {
     app.use(express.json());
@@ -47,6 +47,7 @@ const setupServer = () => {
 
 
     // User Routes
+    app.get("/", usersController.homePage)
     app.get("/users", usersController.index);
     app.post("/users", usersController.newUser);
     app.post("/login", usersController.login);

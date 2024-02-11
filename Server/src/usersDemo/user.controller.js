@@ -6,6 +6,11 @@ const bcrypt = require('bcrypt');
 // API endpoint logic goes in this file. 
 
 module.exports = {
+    // Displays the home page
+    async homePage(req, res) {
+        res.status(200).send("connect success!!!woooooooo!");
+    },
+
     // Displays list of users
     async index(req, res) {
         const users = await usersModel.getAllUsers();
@@ -81,3 +86,5 @@ module.exports = {
 
     },
 }
+
+
