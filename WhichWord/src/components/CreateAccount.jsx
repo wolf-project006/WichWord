@@ -13,14 +13,16 @@ const CreateAccount = ({ setUserName, setView }) => {
             password: password
         };
         try {
-            // await fetch("https://wichword-backend.onrender.com/signup", {
+            // console.log("trying");
+            // const result = await fetch("https://wichword-backend.onrender.com/signup", {
             //     method: "POST",
             //     headers: { "Content-Type": "application/json" },
             //     body: JSON.stringify(body),
             // });
-
-            setUserName(name);
-            setNameTaken("");
+            // const parsed = await result.json();
+            // console.log(parsed);
+            // setUserName(name);
+            // setNameTaken("");
             setView("StartGame");
         } catch {
             setNameTaken("Username is taken");
@@ -31,7 +33,7 @@ const CreateAccount = ({ setUserName, setView }) => {
     return (
         <>
             <div className="container">
-                <header>Create an account</header>
+                <h2 className="white">Create an account</h2>
             </div>
 
             <div className="inputs">

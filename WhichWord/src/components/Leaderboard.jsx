@@ -29,7 +29,7 @@ const Leaderboard = ({ setView }) => {
 
   return (
     <>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>No.</th>

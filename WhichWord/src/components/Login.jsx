@@ -13,12 +13,13 @@ const Login = ({ setUserName, setView, setPersonalBest }) => {
     };
 
     try {
-      const result = await fetch("https://wichword-backend.onrender.com/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      console.log("RESULT: ", result);
+      // const result = await fetch("https://wichword-backend.onrender.com/login", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(body),
+      // });
+      // const parsedResult = await result.json();
+      // console.log("RESULT: ", parsedResult);
       // const data = await fetch("https://wichword-backend.onrender.com/highscore/user");
       // const parsedData = await data.json();
       // const highScore = parseInt(parsedData["highscore"]);
@@ -35,7 +36,7 @@ const Login = ({ setUserName, setView, setPersonalBest }) => {
   return (
     <>
       <div className="container">
-        <header>Login</header>
+        <h2 className="white">Login</h2>
       </div>
 
       <div className="inputs">
