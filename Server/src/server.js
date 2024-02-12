@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const session = require('express-session');
 
-// Controllers 
+// Controllers
 const usersController = require('./users.controller.js');
 
 const setupServer = () => {
@@ -34,17 +34,6 @@ const setupServer = () => {
     // app.get("/", (req, res) => {
     //     res.status(200).send("I am up and running!");
     // });
-
-
-
-
-
-
-
-
-
-
-
 
     // User Routes
     app.get("/", usersController.homePage);
