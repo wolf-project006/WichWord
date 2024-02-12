@@ -12,12 +12,6 @@ function App() {
   const [score, setScore] = useState(0);
   const [personalBest, setPersonalBest] = useState(0);
 
-  // Fetching user's personal
-  // useEffect(() => {
-  //   const getPersonalBest = await fetch("/highscore/username");
-  //   setPersonalBest(getPersonalBest);
-  // })
-
   const components = {
     MainMenu: () => { return <MainMenu setView={setView} /> },
     BaseQuestion1: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} /> },
