@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import React from "react";
 import '../App.css';
 
 const ScoreScreen = ({ score, setScore, setView, personalBest, setPersonalBest }) => {
