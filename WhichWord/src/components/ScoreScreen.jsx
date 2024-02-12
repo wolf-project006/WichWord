@@ -10,7 +10,7 @@ const ScoreScreen = ({ score, setScore, setView, personalBest }) => {
 
   return (
     <>
-      <h1>Personal Best</h1>
+      <h1>Personal Best:</h1>
       <h2>{personalBest}</h2>
       <h1>Score:</h1>
       <h2>{score}</h2>

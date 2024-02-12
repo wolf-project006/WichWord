@@ -21,7 +21,8 @@ header {
 
 .inputs {
     background: #eaeaea;
-    margin-top: 55px;
+    margin-top: 1em;
+    margin-bottom: 1em;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -67,7 +68,7 @@ header {
     display: flex;
     justify-content: center;
     gap: 30px;
-    margin: 60px auto 1em auto;
+    margin: 1em auto 1em auto;
 }
 
 .submit {

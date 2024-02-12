@@ -13,9 +13,11 @@ const Leaderboard = ({ setView }) => {
         const parsedData = await data.json();
 
         const topTen = [];
-        for (let i = 1; i <= 10; i++) {
+        const max = (parsedData.length >= 10) ? 10 : parsedData.length;
+        for (let i = 0; i < max; i++) {
           topTen.push(parsedData[i]);
         }
+        console.log(topTen);
         setTopScores(topTen)
       } catch (e) {
         console.log(e);
@@ -39,8 +41,8 @@ const Leaderboard = ({ setView }) => {
           {topScores.map(data => (
             <tr key={rank}>
               <td>{rank++}</td>
-              <td>{data.userName}</td>
-              <td>{data.highestScore}</td>
+              <td>{data["userName"]}</td>
+              <td>{data["highestScore"]}</td>
             </tr>
           ))}
         </tbody>

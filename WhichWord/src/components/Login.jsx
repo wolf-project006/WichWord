@@ -8,17 +8,17 @@ const Login = ({ setUserName, setView, setPersonalBest }) => {
 
   async function handleOnClick() {
     const body = {
-      name: name,
+      user_name: name,
       password: password
     };
 
     try {
-      // await fetch("https://wichword-backend.onrender.com/login", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(body),
-      // });
-
+      const result = await fetch("https://wichword-backend.onrender.com/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      console.log("RESULT: ", result);
       // const data = await fetch("https://wichword-backend.onrender.com/highscore/user");
       // const parsedData = await data.json();
       // const highScore = parseInt(parsedData["highscore"]);
@@ -50,6 +50,9 @@ const Login = ({ setUserName, setView, setPersonalBest }) => {
         <button className="submit" onClick={handleOnClick}>Login</button>
       </div>
       <p>{incorrectName}</p>
+      <div className="submit-container">
+        <button className="submit" onClick={(e) => { setView("MainMenu") }}>Back</button>
+      </div>
     </>
   );
 }

@@ -9,6 +9,9 @@ const StartGame = ({ setView }) => {
       <div className="marginTop_btn">
         <button onClick={() => { setView("Leaderboard") }}>Leaderboard</button>
       </div>
+      <div className="marginTop_btn">
+        <button onClick={() => { setView("MainMenu") }}>Logout</button>
+      </div>
     </>
   )
 }

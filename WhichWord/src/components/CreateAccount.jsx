@@ -9,15 +9,15 @@ const CreateAccount = ({ setUserName, setView }) => {
 
     async function handleOnClick() {
         const body = {
-            name: name,
+            user_name: name,
             password: password
         };
         try {
-            await fetch("https://wichword-backend.onrender.com/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
-            });
+            // await fetch("https://wichword-backend.onrender.com/signup", {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(body),
+            // });
 
             setUserName(name);
             setNameTaken("");
@@ -46,6 +46,9 @@ const CreateAccount = ({ setUserName, setView }) => {
                 <button className="submit" onClick={handleOnClick}>Sign Up</button>
             </div>
             <p>{nameTaken}</p>
+            <div className="submit-container">
+                <button className="submit" onClick={(e) => { setView("MainMenu") }}>Back</button>
+            </div>
 
         </>
     )
