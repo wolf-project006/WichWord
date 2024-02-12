@@ -32,8 +32,8 @@ module.exports = {
 
     async signup(req, res) {
         try {
-            userName = req.body.name;
-            nickName = req.body.nickName;
+            userName = req.body.user_name;
+            nickName = req.body.nick_name;
             const salt = await bcrypt.genSalt(saltRounds);
             const hashedPassword = await bcrypt.hash(req.body.password, salt);
             console.log(hashedPassword);
