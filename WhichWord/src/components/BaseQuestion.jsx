@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../App.css';
 
-const BaseQuestion = ({ score, setScore, view, setView }) => {
+const BaseQuestion = ({ score, setScore, view, setView, personalBest, setPersonalBest }) => {
 
   const [answer, setAnswer] = useState(""); // Player answer
   const [headAndTail, setHeadAndTail] = useState([]);
@@ -70,15 +70,19 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
     const result = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${answerToFetch}`);
     const parsedResult = await result.json();
 
+    let points;
     // If word exists
     if (parsedResult[0] && parsedResult[0]["word"]) {
-      const points = score + answer.length;
+      points = score + answer.length;
       setScore(points);
     }
 
     let round = parseInt(view.slice(-1));
-    if (round === FINAL_ROUND)
+    if (round === FINAL_ROUND) {
+      if (points > personalBest)
+        setPersonalBest(points);
       setView("ScoreScreen");
+    }
     else {
       round += 1;
       setView(`BaseQuestion${round}`);

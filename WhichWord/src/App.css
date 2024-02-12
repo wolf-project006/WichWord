@@ -23,3 +23,7 @@ input:focus {
 .letter {
   display: inline;
 }
+
+.marginTop_btn {
+  margin-top: 1em;
+}

@@ -1,25 +1,29 @@
 import { useState, useEffect } from 'react'
-
-import './App.css'
+import '../index.css';
+import '../App.css';
 
 const Leaderboard = ({ setView }) => {
   const [topScores, setTopScores] = useState([]);
-  let rank;
+  let rank = 1;
 
   useEffect(() => {
-    const temp = [
-      { userName: "test", highestScore: 405, id: 1 },
-      { userName: "test1", highestScore: 400, id: 2 },
-      { userName: "test2", highestScore: 40, id: 3 },
-    ];
-    setTopScores(temp);
-  }, [])
-  // useEffect(() => {
-  //   const data = fetch("tempPath/:limit");
-  //   const topTen = data.json();
-  // 
-  //   rank = 1;
-  // }, []);
+    async function fetchHighestUsers() {
+      try {
+        const data = await fetch("https://wichword-backend.onrender.com/highest_users");
+        const parsedData = await data.json();
+
+        const topTen = [];
+        for (let i = 1; i <= 10; i++) {
+          topTen.push(parsedData[i]);
+        }
+        setTopScores(topTen)
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    fetchHighestUsers();
+  }, []);
 
   return (
     <>
@@ -33,7 +37,7 @@ const Leaderboard = ({ setView }) => {
         </thead>
         <tbody>
           {topScores.map(data => (
-            <tr key={data.id}>
+            <tr key={rank}>
               <td>{rank++}</td>
               <td>{data.userName}</td>
               <td>{data.highestScore}</td>
@@ -41,7 +45,7 @@ const Leaderboard = ({ setView }) => {
           ))}
         </tbody>
       </table>
-      <button onClick={setView("StartScreen")}>Back</button>
+      <button className="marginTop_btn" onClick={() => { setView("StartGame") }}>Back</button>
     </>
   )
 }

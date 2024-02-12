@@ -1,16 +1,16 @@
 .container {
-    background: grey;
+    background: #2D3142;
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top:200px;
+    margin-top: 1em;
     padding-bottom: 30px;
     border-radius: 12px;
     font-size: 18px;
 }
 
 header {
-    color:#eaeaea;
+    color: #eaeaea;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,11 +49,12 @@ header {
     outline: none;
     font-size: 19px;
     color: #797979;
+    margin: 1em;
 }
 
 .forgot-password {
     padding-left: 62px;
-    margin-top:27px;
+    margin-top: 27px;
     font-size: 18px;
 }
 
@@ -64,14 +65,15 @@ header {
 
 .submit-container {
     display: flex;
+    justify-content: center;
     gap: 30px;
-    margin: 60px auto;
+    margin: 60px auto 1em auto;
 }
 
 .submit {
     color: #eaeaea;
-    background: grey;
-    display:flex;
+    background: #EF8354;
+    display: flex;
     justify-content: center;
     align-items: center;
     width: 220px;
@@ -81,5 +83,3 @@ header {
     font-weight: 700s;
     cursor: pointer;
 }
-
-
