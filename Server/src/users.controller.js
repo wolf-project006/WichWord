@@ -100,25 +100,36 @@ module.exports = {
             password,
         } = req.body;
 
-
-        const saltRounds = 10;
-
-        const salt = await bcrypt.genSalt(saltRounds);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        const payload = {
-            user_name: user_name,
-            hashed_password: hashedPassword,
-        };
-
-        let user;
-
         try {
-            user = await usersModel.loginUser(payload);
-            res.status(200).send(user);
+            const rows = await knex(TABLE_NAME).select('*').where('user_name', user_name);
+
+            if (rows.length > 0) {
+                const hashedPassword = rows[0].hashed_password;
+                bcrypt.compare(password, hashedPassword, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send("Error while comparing passwords");
+                        return;
+                    }
+
+                    if (result) {
+                        console.log("User Authenticated");
+                        res.status(400).send("User Authenticated");
+                    } else {
+                        console.log("Incorrect Password");
+                        res.status(400).send("Incorrect Password");
+                    }
+                });
+            } else {
+                console.log("User not found");
+                res.status(400).send("User not found");
+            }
+
         } catch (error) {
             console.log(error);
+            res.status(500).send("Internal Server / Database Error");
         }
+
 
     },
 }
