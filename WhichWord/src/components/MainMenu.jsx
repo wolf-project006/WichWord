@@ -1,15 +1,17 @@
 import React from "react";
+import '../App.css';
 
 const MainMenu = ({ setView }) => {
-
-  function handleOnClick() {
-    setView("BaseQuestion1");
-  }
 
   return (
     <>
       <h1>WichWord</h1>
-      <button onClick={handleOnClick}>Start</button>
+      <div>
+        <button onClick={() => { setView("Login") }}>Login</button>
+      </div>
+      <div>
+        <button className="marginTop_btn" onClick={() => { setView("CreateAccount") }}>Signup</button>
+      </div>
     </>
   );
 }
