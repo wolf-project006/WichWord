@@ -6,37 +6,40 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
   const [answer, setAnswer] = useState(""); // Player answer
   const [headAndTail, setHeadAndTail] = useState([]);
   const [timeLeft, setTimeLeft] = useState(10);
+
+  const FINAL_ROUND = 5;
+
   const [inputStyle, setInputStyle] = useState({ // Setting up the styling here so we can dynamically change the input field width
     width: `${answer.length}ch`,
     fontSize: "3em",
     border: "none",
-    color: "cadetblue"
+    color: "#EF8354"
   });
 
-  const weightedHead ="qjzxvkwyfbghmpduclsntoiraewpfmcosiat";
-  const weightedTail ="qjzxvkwyfbghmpduclsntoiraefloryntdse";
-  const alphabetWeights =[1,2,3,4,9,15,22,31,40,51,64,79,94,110,127,146,169,196,225,259,294,331,370,409,452,509,559,609,659,709,759,809,859,909,959,1009];
-  const maxCumulativeWeight = alphabetWeights[alphabetWeights.length-1];
+  const weightedHead = "qjzxvkwyfbghmpduclsntoiraewpfmcosiat";
+  const weightedTail = "qjzxvkwyfbghmpduclsntoiraefloryntdse";
+  const alphabetWeights = [1, 2, 3, 4, 9, 15, 22, 31, 40, 51, 64, 79, 94, 110, 127, 146, 169, 196, 225, 259, 294, 331, 370, 409, 452, 509, 559, 609, 659, 709, 759, 809, 859, 909, 959, 1009];
+  const maxCumulativeWeight = alphabetWeights[alphabetWeights.length - 1];
 
-  function weightedRandomItems(items,weights){
+  function weightedRandomItems(items, weights) {
 
     const randomNumber = maxCumulativeWeight * Math.random();
-    
-        for (let i = 0; i < items.length; i++){
-            if(weights[i]>= randomNumber){
-                return items[i]
-            }
-        }
+
+    for (let i = 0; i < items.length; i++) {
+      if (weights[i] >= randomNumber) {
+        return items[i]
+      }
     }
+  }
 
   // Set head and tail letters
   useEffect(() => {
-    const head = weightedRandomItems(weightedHead,alphabetWeights);
-    const tail = weightedRandomItems(weightedTail,alphabetWeights);
+    const head = weightedRandomItems(weightedHead, alphabetWeights);
+    const tail = weightedRandomItems(weightedTail, alphabetWeights);
     const newArr = [head, tail];
 
     setHeadAndTail(newArr);
-  }, []);
+  }, [view]);
 
   // Change width of input dynamically
   useEffect(() => {
@@ -45,15 +48,17 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
     setInputStyle(newInputStyle);
   }, [answer])
 
+  // 10 second timer
   useEffect(() => {
+    let interval;
     // Exit when time is up
     if (timeLeft === 0) {
       gameOver();
-    };
-
-    const interval = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
-    }, 1000);
+    } else {
+      interval = setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+    }
 
     // clear interval on re-render to avoid memory leaks
     return () => clearInterval(interval);
@@ -71,8 +76,17 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
       setScore(points);
     }
 
-    setView("ScoreScreen");
+    let round = parseInt(view.slice(-1));
+    if (round === FINAL_ROUND)
+      setView("ScoreScreen");
+    else {
+      round += 1;
+      setView(`BaseQuestion${round}`);
+    }
+    setAnswer("");
+    setTimeLeft(10);
   }
+
 
   return (
     <>
@@ -84,6 +98,6 @@ const BaseQuestion = ({ score, setScore, view, setView }) => {
       </div>
     </>
   );
-}
 
+}
 export default BaseQuestion;

@@ -7,17 +7,23 @@ import ScoreScreen from './components/ScoreScreen';
 function App() {
 
   const [view, setView] = useState("MainMenu"); // Dictates what component is rendered
-  const [score, setScore] = useState(0);
   const [viewHTML, setViewHTML] = useState(<></>); // What is rendered
 
+  const [score, setScore] = useState(0);
+  const [personalBest, setPersonalBest] = useState(0);
+
+  const components = {
+    MainMenu: () => { return <MainMenu setView={setView} /> },
+    BaseQuestion1: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} /> },
+    BaseQuestion2: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} /> },
+    BaseQuestion3: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} /> },
+    BaseQuestion4: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} /> },
+    BaseQuestion5: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} /> },
+    ScoreScreen: () => { return <ScoreScreen score={score} setScore={setScore} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} /> },
+  }
   // Everytime {view} changes, html component stored changes
   useEffect(() => {
-    if (view === "MainMenu")
-      setViewHTML(<MainMenu setView={setView} />);
-    else if (view === "BaseQuestion1")
-      setViewHTML(<BaseQuestion score={score} setScore={setScore} view={view} setView={setView} />);
-    else
-      setViewHTML(<ScoreScreen score={score} setScore={setScore} setView={setView} />);
+    setViewHTML(components[view]());
   }, [view])
 
   return (
