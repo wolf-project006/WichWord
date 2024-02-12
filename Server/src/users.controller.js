@@ -32,18 +32,27 @@ module.exports = {
 
     async signup(req, res) {
         try {
+
             userName = req.body.user_name;
             nickName = req.body.nick_name;
-            const salt = await bcrypt.genSalt(saltRounds);
-            const hashedPassword = await bcrypt.hash(req.body.password, salt);
-            console.log(hashedPassword);
-            await knex(TABLE_NAME)
-            .insert({
-                user_name: userName,
-                nick_name: nickName,
-                hashed_password: hashedPassword
-            });
-            res.status(200).send('signup success!')
+
+            const existingUsername = await knex(TABLE_NAME).select('*').where('user_name', user_name);
+            const existingNickname = await knex(TABLE_NAME).select('*').where('nick_name', nick_name);
+
+            if (existingUsername.length === 0 && existingNickname.length === 0) {
+                const salt = await bcrypt.genSalt(saltRounds);
+                const hashedPassword = await bcrypt.hash(req.body.password, salt);
+                console.log(hashedPassword);
+                await knex(TABLE_NAME)
+                .insert({
+                    user_name: userName,
+                    nick_name: nickName,
+                    hashed_password: hashedPassword
+                });
+                res.status(200).send('signup success!');
+            } else {
+                res.status(409).send('Username / nickname already taken.');
+            }
         } catch(err) {
             console.error(err.message);
         }
@@ -114,15 +123,15 @@ module.exports = {
 
                     if (result) {
                         console.log("User Authenticated");
-                        res.status(400).send("User Authenticated");
+                        res.status(200).send("User Authenticated");
                     } else {
                         console.log("Incorrect Password");
-                        res.status(400).send("Incorrect Password");
+                        res.status(401).send("Incorrect Password");
                     }
                 });
             } else {
                 console.log("User not found");
-                res.status(400).send("User not found");
+                res.status(404).send("User not found");
             }
 
         } catch (error) {
