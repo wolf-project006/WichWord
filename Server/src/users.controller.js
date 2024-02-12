@@ -1,6 +1,6 @@
 // const usersModel = require("./users.model");
 const bcrypt = require('bcrypt');
-const knex = require('../../knex');
+const knex = require('../knex');
 const TABLE_NAME = 'users';
 const saltRounds = 10;
 const session = require('express-session');
