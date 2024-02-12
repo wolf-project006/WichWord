@@ -70,13 +70,13 @@ module.exports = {
 
         let user;
 
-        
+
         try {
             user = await usersModel.loginUser(payload);
             res.status(200).send(user);
         } catch (error) {
             console.log(error);
-            
+
         }
 
     },
