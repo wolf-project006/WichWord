@@ -13,23 +13,22 @@ const Login = ({ setUserName, setView, setPersonalBest }) => {
     };
 
     try {
-      // const result = await fetch("https://wichword-backend.onrender.com/login", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(body),
-      // });
-      // const parsedResult = await result.json();
-      // console.log("RESULT: ", parsedResult);
-      // const data = await fetch("https://wichword-backend.onrender.com/highscore/user");
-      // const parsedData = await data.json();
-      // const highScore = parseInt(parsedData["highscore"]);
-      // setPersonalBest(highScore);
+      const result = await fetch("https://wichword-backend.onrender.com/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
-      setUserName(name);
-      setIncorrectName("");
-      setView("StartGame")
-    } catch {
-      setIncorrectName("Incorrect name or password")
+      if (result["status"] !== 200)
+        setIncorrectName("Incorrect name or password");
+      else {
+        setUserName(name);
+        setIncorrectName("");
+        setView("StartGame")
+      }
+    } catch (e) {
+      console.log(e);
+      setIncorrectName("Incorrect name or password");
     }
   }
 
