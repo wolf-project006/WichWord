@@ -152,7 +152,7 @@ module.exports = {
         const currentScore = req.body.currentScore;
         const knexSelectResult = await knex.select('highest_score').from(TABLE_NAME).where('user_name', userName);
         const currentHighestScore = knexSelectResult[0].highest_score;
-        if (currentHighestScore <= currentScore) {
+        if (currentHighestScore < currentScore) {
             await knex(TABLE_NAME).where('user_name', userName).update("highest_score", currentScore);
             res.status(200).send(`highest score updated from ${currentHighestScore} to ${currentScore}`);
         } else {
