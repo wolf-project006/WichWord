@@ -8,7 +8,7 @@ module.exports = {
             return res.status(400).json({ error: "Missing required inputs"});
         }
 
-        // Check for additional / disallowed fields are present
+        // Check if additional / disallowed fields are present
         const allowedFields = ['user_name', 'nick_name', 'password'];
         const receivedFields = Object.keys(req.body);
         const invalidFields = receivedFields.filter(field => !allowedFields.includes(field));
@@ -28,7 +28,7 @@ module.exports = {
             return res.status(400).json({ error: "Missing required inputs"});
         }
 
-        // Check for additional / disallowed fields are present
+        // Check if additional / disallowed fields are present
         const allowedFields = ['user_name', 'password'];
         const receivedFields = Object.keys(req.body);
         const invalidFields = receivedFields.filter(field => !allowedFields.includes(field));
