@@ -1,22 +1,34 @@
-import React, { useState } from "react"
+import React, { useEffect } from "react"
 import '../App.css';
 
-const ScoreScreen = ({ score, setScore, setView, personalBest, setPersonalBest }) => {
+const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
+  useEffect(() => {
+    const body = {
+      userName: userName,
+      currentScore: score
+    }
 
-  if(score > personalBest){
-    setPersonalBest(score)
-  };
-  // updates PB 
+    async function patchScore() {
+      console.log(score);
+      await fetch("https://wichword-backend.onrender.com/patchHighestScore", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      console.log("working!")
+    }
+
+    patchScore();
+  }, [])
 
   function handleOnClick() {
     setScore(0); // Reset score
-    setView("MainMenu");
+    setView("StartGame");
   }
 
   return (
     <>
-
-      <h1>Personal Best</h1>
+      <h1>Personal Best:</h1>
       <h2>{personalBest}</h2>
       <h1>Score:</h1>
       <h2>{score}</h2>

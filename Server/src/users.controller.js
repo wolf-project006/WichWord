@@ -5,12 +5,10 @@ const TABLE_NAME = 'users';
 const saltRounds = 10;
 const session = require('express-session');
 
-// app.use(session({
-//     secret: 'your_secret_key', // A secret key for signing the session ID cookie.
-//     resave: false, // Do not force the session to be saved back to the session store.
-//     saveUninitialized: false, // Do not force a session that is "uninitialized" to be saved to the store.
-//     cookie: { secure: true, maxAge: 60000 } // Cookie settings, `secure: true` should be used for HTTPS.
-//   }));
+
+// Server-side validation
+
+
 
 // API endpoint logic goes in this file. 
 
@@ -31,31 +29,31 @@ module.exports = {
     },
 
     async signup(req, res) {
-        try {
+            try {
 
-            userName = req.body.user_name;
-            nickName = req.body.nick_name;
-
-            const existingUsername = await knex(TABLE_NAME).select('*').where('user_name', user_name);
-            const existingNickname = await knex(TABLE_NAME).select('*').where('nick_name', nick_name);
-
-            if (existingUsername.length === 0 && existingNickname.length === 0) {
-                const salt = await bcrypt.genSalt(saltRounds);
-                const hashedPassword = await bcrypt.hash(req.body.password, salt);
-                console.log(hashedPassword);
-                await knex(TABLE_NAME)
-                .insert({
-                    user_name: userName,
-                    nick_name: nickName,
-                    hashed_password: hashedPassword
-                });
-                res.status(200).send('signup success!');
-            } else {
-                res.status(409).send('Username / nickname already taken.');
+                userName = req.body.user_name;
+                nickName = req.body.nick_name;
+    
+                const existingUsername = await knex(TABLE_NAME).select('*').where('user_name', userName);
+                const existingNickname = await knex(TABLE_NAME).select('*').where('nick_name', nickName);
+    
+                if (existingUsername.length === 0 && existingNickname.length === 0) {
+                    const salt = await bcrypt.genSalt(saltRounds);
+                    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+                    console.log(hashedPassword);
+                    await knex(TABLE_NAME)
+                    .insert({
+                        user_name: userName,
+                        nick_name: nickName,
+                        hashed_password: hashedPassword
+                    });
+                    res.status(200).send('signup success!');
+                } else {
+                    res.status(409).send('Username / nickname already taken.');
+                }
+            } catch(err) {
+                console.error(err.message);
             }
-        } catch(err) {
-            console.error(err.message);
-        }
     },
 
     // Displays list of users
@@ -111,7 +109,7 @@ module.exports = {
 
         try {
             const rows = await knex(TABLE_NAME).select('*').where('user_name', user_name);
-
+            console.log(rows);
             if (rows.length > 0) {
                 const hashedPassword = rows[0].hashed_password;
                 bcrypt.compare(password, hashedPassword, function(err, result) {
@@ -123,7 +121,11 @@ module.exports = {
 
                     if (result) {
                         console.log("User Authenticated");
-                        res.status(200).send("User Authenticated");
+                        const objToReturn = {
+                            nickName: rows[0].nick_name,
+                            highestScore: rows[0].highest_score,
+                        }
+                        res.status(200).send(objToReturn);
                     } else {
                         console.log("Incorrect Password");
                         res.status(401).send("Incorrect Password");
@@ -138,9 +140,29 @@ module.exports = {
             console.log(error);
             res.status(500).send("Internal Server / Database Error");
         }
-
-
     },
+
+    async patchHighestScore(req, res) {
+       /*
+       req.body:
+       {
+        "userName": "user's user_name",
+        "currentScore": highest_score, int
+       }
+       */ 
+        const userName = req.body.userName;
+        const currentScore = req.body.currentScore;
+        const knexSelectResult = await knex.select('highest_score').from(TABLE_NAME).where('user_name', userName);
+        const currentHighestScore = knexSelectResult[0].highest_score;
+        if (currentHighestScore < currentScore) {
+            await knex(TABLE_NAME).where('user_name', userName).update("highest_score", currentScore);
+            res.status(200).send(`highest score updated from ${currentHighestScore} to ${currentScore}`);
+        } else {
+            res.status(200).send(`highest score is not updated. Score not high enough`);
+        }
+        
+    }
+
 }
 
 

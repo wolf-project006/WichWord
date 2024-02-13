@@ -10,6 +10,7 @@ const session = require('express-session');
 
 // Controllers
 const usersController = require('./users.controller.js');
+const { validateNewUser, validateExisitingUser } = require('./util/validation.js');
 
 const setupServer = () => {
     app.use(express.json());
@@ -38,10 +39,11 @@ const setupServer = () => {
     // User Routes
     app.get("/", usersController.homePage);
     app.get("/highest_users", usersController.getHighestUsers);
-    app.post("/signup", usersController.signup);
+    app.post("/signup", validateNewUser, usersController.signup);
     // app.get("/users", usersController.index);
     // app.post("/users", usersController.newUser);
-    app.post("/login", usersController.login);
+    app.post("/login", validateExisitingUser, usersController.login);
+    app.patch("/patchHighestScore", usersController.patchHighestScore);
 
     return app;
 }
