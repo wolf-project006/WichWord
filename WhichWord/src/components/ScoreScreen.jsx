@@ -1,7 +1,25 @@
 import React, { useEffect } from "react"
 import '../App.css';
 
-const ScoreScreen = ({ score, setScore, setView, personalBest }) => {
+const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
+  useEffect(() => {
+    const body = {
+      userName: userName,
+      currentScore: score
+    }
+
+    async function patchScore() {
+      console.log(score);
+      await fetch("https://wichword-backend.onrender.com/patchHighestScore", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      console.log("working!")
+    }
+
+    patchScore();
+  }, [])
 
   function handleOnClick() {
     setScore(0); // Reset score

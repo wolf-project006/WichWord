@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import './CreateAccount.css';
 
-const CreateAccount = ({ setUserName, setView }) => {
+const CreateAccount = ({ setUserName, setNickname, setView }) => {
 
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [nameTaken, setNameTaken] = useState("");
-    const [nickname, setNickname] = useState("");
+    const [tempNickname, setTempNickname] = useState("");
 
     async function handleOnClick() {
         const body = {
             user_name: name,
-            nick_name: nickname,
+            nick_name: tempNickname,
             password: password
         };
         try {
+            console.log("trying");
             const result = await fetch("https://wichword-backend.onrender.com/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -22,9 +23,10 @@ const CreateAccount = ({ setUserName, setView }) => {
             });
 
             if (result["status"] !== 200)
-                setIncorrectName("Incorrect name or password");
+                setNameTaken("Username is taken");
             else {
-                setUserName(name);
+                await setUserName(name);
+                await setNickname(tempNickname);
                 setNameTaken("");
                 setView("StartGame")
             }
@@ -43,10 +45,10 @@ const CreateAccount = ({ setUserName, setView }) => {
 
             <div className="inputs">
                 <div className="input">
-                    <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
+                    <input type="text" placeholder="Username" value={name} onChange={(e) => setName(e.target.value)} required />
                 </div>
                 <div className="input">
-                    <input type="text" placeholder="Nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} required />
+                    <input type="text" placeholder="Nickname" value={tempNickname} onChange={(e) => setTempNickname(e.target.value)} required />
                 </div>
                 <div className="input">
                     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />

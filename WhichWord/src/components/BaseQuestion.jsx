@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../App.css';
 
-const BaseQuestion = ({ score, setScore, view, setView, personalBest, setPersonalBest }) => {
+const BaseQuestion = ({ score, setScore, view, setView, personalBest, setPersonalBest, nickname }) => {
 
   const [answer, setAnswer] = useState(""); // Player answer
   const [headAndTail, setHeadAndTail] = useState([]);
@@ -18,24 +18,34 @@ const BaseQuestion = ({ score, setScore, view, setView, personalBest, setPersona
 
   const weightedHead = "qjzxvkwyfbghmpduclsntoiraewpfmcosiat";
   const weightedTail = "qjzxvkwyfbghmpduclsntoiraefloryntdse";
-  const alphabetWeights = [1, 2, 3, 4, 9, 15, 22, 31, 40, 51, 64, 79, 94, 110, 127, 146, 169, 196, 225, 259, 294, 331, 370, 409, 452, 509, 559, 609, 659, 709, 759, 809, 859, 909, 959, 1009];
-  const maxCumulativeWeight = alphabetWeights[alphabetWeights.length - 1];
+  const headWeights = [1, 2, 3, 4, 9, 15, 22, 31, 40, 51, 64, 79, 94, 110, 127, 146, 169, 196, 225, 259, 294, 331, 370, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700];
+  const tailWeights = [1, 2, 3, 4, 9, 15, 22, 31, 40, 51, 64, 79, 94, 110, 127, 146, 169, 196, 225, 259, 294, 331, 370, 500, 700, 900, 1100, 1300, 1500, 1700, 1900, 2100, 2300, 2500, 2700, 2900];
+  const maxCumulativeWeightHeads = headWeights[headWeights.length - 1];
+  const maxCumulativeWeightTails = tailWeights[tailWeights.length - 1];
 
-  function weightedRandomItems(items, weights) {
+  function weightedRandomItems(items, weights, headOrTail) {
+    const randomHeadNumber = maxCumulativeWeightHeads * Math.random();
+    const randomTailNumber = maxCumulativeWeightTails * Math.random();
 
-    const randomNumber = maxCumulativeWeight * Math.random();
-
-    for (let i = 0; i < items.length; i++) {
-      if (weights[i] >= randomNumber) {
-        return items[i]
+    if (headOrTail === "head") {
+      for (let i = 0; i < items.length; i++) {
+        if (weights[i] >= randomHeadNumber) {
+          return items[i]
+        }
+      }
+    } else {
+      for (let i = 0; i < items.length; i++) {
+        if (weights[i] >= randomTailNumber) {
+          return items[i]
+        }
       }
     }
   }
 
   // Set head and tail letters
   useEffect(() => {
-    const head = weightedRandomItems(weightedHead, alphabetWeights);
-    const tail = weightedRandomItems(weightedTail, alphabetWeights);
+    const head = weightedRandomItems(weightedHead, headWeights, "head");
+    const tail = weightedRandomItems(weightedTail, tailWeights, "tail");
     const newArr = [head, tail];
 
     setHeadAndTail(newArr);
@@ -94,6 +104,7 @@ const BaseQuestion = ({ score, setScore, view, setView, personalBest, setPersona
 
   return (
     <>
+      <p className="nickname">{nickname}</p>
       <p>{timeLeft}</p>
       <div>
         <h1 className="letter">{headAndTail[0]}</h1>
