@@ -36,8 +36,8 @@ module.exports = {
             userName = req.body.user_name;
             nickName = req.body.nick_name;
 
-            const existingUsername = await knex(TABLE_NAME).select('*').where('user_name', user_name);
-            const existingNickname = await knex(TABLE_NAME).select('*').where('nick_name', nick_name);
+            const existingUsername = await knex(TABLE_NAME).select('*').where('user_name', userName);
+            const existingNickname = await knex(TABLE_NAME).select('*').where('nick_name', nickName);
 
             if (existingUsername.length === 0 && existingNickname.length === 0) {
                 const salt = await bcrypt.genSalt(saltRounds);
