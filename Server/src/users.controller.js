@@ -138,9 +138,11 @@ module.exports = {
             console.log(error);
             res.status(500).send("Internal Server / Database Error");
         }
-
-
     },
+
+    async patchHighestScore(req, res) {
+        
+    }
 }
 
 
