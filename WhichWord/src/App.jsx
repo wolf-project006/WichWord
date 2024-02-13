@@ -16,19 +16,20 @@ function App() {
   const [score, setScore] = useState(0);
   const [personalBest, setPersonalBest] = useState(0);
   const [userName, setUserName] = useState("");
+  const [nickname, setNickname] = useState("");
 
   const components = {
     MainMenu: () => { return <MainMenu setView={setView} /> },
-    Login: () => { return <Login setView={setView} setUserName={setUserName} setPersonalBest={setPersonalBest} /> },
-    CreateAccount: () => { return <CreateAccount setView={setView} setUserName={setUserName} /> },
-    StartGame: () => { return <StartGame setView={setView} /> },
-    BaseQuestion1: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} /> },
-    BaseQuestion2: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} /> },
-    BaseQuestion3: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} /> },
-    BaseQuestion4: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} /> },
-    BaseQuestion5: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} /> },
+    Login: () => { return <Login setView={setView} setUserName={setUserName} setNickname={setNickname} setPersonalBest={setPersonalBest} /> },
+    CreateAccount: () => { return <CreateAccount setView={setView} setUserName={setUserName} nickname={nickname} setNickname={setNickname} /> },
+    StartGame: () => { return <StartGame setView={setView} nickname={nickname} /> },
+    BaseQuestion1: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} nickname={nickname} /> },
+    BaseQuestion2: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} nickname={nickname} /> },
+    BaseQuestion3: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} nickname={nickname} /> },
+    BaseQuestion4: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} nickname={nickname} /> },
+    BaseQuestion5: () => { return <BaseQuestion score={score} setScore={setScore} view={view} setView={setView} personalBest={personalBest} setPersonalBest={setPersonalBest} nickname={nickname} /> },
     Leaderboard: () => { return <Leaderboard setView={setView} /> },
-    ScoreScreen: () => { return <ScoreScreen score={score} setScore={setScore} setView={setView} personalBest={personalBest} /> },
+    ScoreScreen: () => { return <ScoreScreen userName={userName} score={score} setScore={setScore} setView={setView} personalBest={personalBest} /> },
   }
   // Everytime {view} changes, html component stored changes
   useEffect(() => {

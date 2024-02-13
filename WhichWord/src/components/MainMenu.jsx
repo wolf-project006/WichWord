@@ -5,9 +5,11 @@ const MainMenu = ({ setView }) => {
 
   return (
     <>
-      <h1>WichWord</h1>
+      <h1 className="letter">W</h1>
+      <h1 className="letter orange orange-border">ichWor</h1>
+      <h1 className="letter">d</h1 >
       <div>
-        <button onClick={() => { setView("Login") }}>Login</button>
+        <button className="marginTop_btn" onClick={() => { setView("Login") }}>Login</button>
       </div>
       <div>
         <button className="marginTop_btn" onClick={() => { setView("CreateAccount") }}>Signup</button>

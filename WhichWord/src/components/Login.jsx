@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './CreateAccount.css';
 
-const Login = ({ setUserName, setView, setPersonalBest }) => {
+const Login = ({ setUserName, setView, setPersonalBest, setNickname }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [incorrectName, setIncorrectName] = useState("");
@@ -19,9 +19,14 @@ const Login = ({ setUserName, setView, setPersonalBest }) => {
         body: JSON.stringify(body),
       });
 
+
       if (result["status"] !== 200)
         setIncorrectName("Incorrect name or password");
       else {
+        const parsedResult = await result.json();
+        console.log("PARSED:", parsedResult)
+        setNickname(parsedResult["nickName"]);
+        setPersonalBest(parsedResult["highestScore"]);
         setUserName(name);
         setIncorrectName("");
         setView("StartGame")

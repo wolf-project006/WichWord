@@ -16,6 +16,11 @@
   color: #EF8354;
 }
 
+.orange-border {
+  border: 1px solid #EF8354;
+  border-radius: 3px;
+}
+
 input:focus {
   outline-color: #EF8354;
 }
@@ -30,4 +35,10 @@ input:focus {
 
 .table {
   width: 100%;
+}
+
+.nickname {
+  position: absolute;
+  top: 1em;
+  right: 2em;
 }
