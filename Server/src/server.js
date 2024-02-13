@@ -42,6 +42,7 @@ const setupServer = () => {
     // app.get("/users", usersController.index);
     // app.post("/users", usersController.newUser);
     app.post("/login", usersController.login);
+    app.patch("/patchHighestScore", usersController.patchHighestScore);
 
     return app;
 }

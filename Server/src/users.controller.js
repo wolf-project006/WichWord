@@ -36,8 +36,8 @@ module.exports = {
             userName = req.body.user_name;
             nickName = req.body.nick_name;
 
-            const existingUsername = await knex(TABLE_NAME).select('*').where('user_name', user_name);
-            const existingNickname = await knex(TABLE_NAME).select('*').where('nick_name', nick_name);
+            const existingUsername = await knex(TABLE_NAME).select('*').where('user_name', userName);
+            const existingNickname = await knex(TABLE_NAME).select('*').where('nick_name', nickName);
 
             if (existingUsername.length === 0 && existingNickname.length === 0) {
                 const salt = await bcrypt.genSalt(saltRounds);
@@ -138,9 +138,29 @@ module.exports = {
             console.log(error);
             res.status(500).send("Internal Server / Database Error");
         }
-
-
     },
+
+    async patchHighestScore(req, res) {
+       /*
+       req.body:
+       {
+        "userName": "user's user_name",
+        "currentScore": highest_score, int
+       }
+       */ 
+        const userName = req.body.userName;
+        const currentScore = req.body.currentScore;
+        const knexSelectResult = await knex.select('highest_score').from(TABLE_NAME).where('user_name', userName);
+        const currentHighestScore = knexSelectResult[0].highest_score;
+        if (currentHighestScore < currentScore) {
+            await knex(TABLE_NAME).where('user_name', userName).update("highest_score", currentScore);
+            res.status(200).send(`highest score updated from ${currentHighestScore} to ${currentScore}`);
+        } else {
+            res.status(200).send(`highest score is not updated. Score not high enough`);
+        }
+        
+    }
+
 }
 
 
