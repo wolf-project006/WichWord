@@ -141,8 +141,26 @@ module.exports = {
     },
 
     async patchHighestScore(req, res) {
+       /*
+       req.body:
+       {
+        "userName": "user's user_name",
+        "currentScore": highest_score, int
+       }
+       */ 
+        const userName = req.body.userName;
+        const currentScore = req.body.currentScore;
+        const knexSelectResult = await knex.select('highest_score').from(TABLE_NAME).where('user_name', userName);
+        const currentHighestScore = knexSelectResult[0].highest_score;
+        if (currentHighestScore <= currentScore) {
+            await knex(TABLE_NAME).where('user_name', userName).update("highest_score", currentScore);
+            res.status(200).send(`highest score updated from ${currentHighestScore} to ${currentScore}`);
+        } else {
+            res.status(200).send(`highest score is not updated. Score not high enough`);
+        }
         
     }
+
 }
 
 
