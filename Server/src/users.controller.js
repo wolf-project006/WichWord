@@ -111,7 +111,7 @@ module.exports = {
 
         try {
             const rows = await knex(TABLE_NAME).select('*').where('user_name', user_name);
-
+            console.log(rows);
             if (rows.length > 0) {
                 const hashedPassword = rows[0].hashed_password;
                 bcrypt.compare(password, hashedPassword, function(err, result) {
@@ -123,7 +123,11 @@ module.exports = {
 
                     if (result) {
                         console.log("User Authenticated");
-                        res.status(200).send("User Authenticated");
+                        objToReturn = {
+                            nickNname: rows[0].nick_name,
+                            highestScore: rows[0].highest_score,
+                        }
+                        res.status(200).send(objToReturn);
                     } else {
                         console.log("Incorrect Password");
                         res.status(401).send("Incorrect Password");
