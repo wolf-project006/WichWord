@@ -123,7 +123,7 @@ module.exports = {
 
                     if (result) {
                         console.log("User Authenticated");
-                        objToReturn = {
+                        const objToReturn = {
                             nickNname: rows[0].nick_name,
                             highestScore: rows[0].highest_score,
                         }
