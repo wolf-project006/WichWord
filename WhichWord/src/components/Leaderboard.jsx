@@ -9,7 +9,8 @@ const Leaderboard = ({ setView }) => {
   useEffect(() => {
     async function fetchHighestUsers() {
       try {
-        const data = await fetch("https://wichword-backend.onrender.com/highest_users");
+        // const data = await fetch("https://wichword-backend.onrender.com/highest_users");
+        const data = await fetch("http://localhost:8080/highest_users");
         const parsedData = await data.json();
 
         const topTen = [];

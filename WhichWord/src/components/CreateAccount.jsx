@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './CreateAccount.css';
+import '../style/CreateAccount.css';
 
 const CreateAccount = ({ setUserName, setNickname, setView }) => {
 
@@ -16,7 +16,8 @@ const CreateAccount = ({ setUserName, setNickname, setView }) => {
         };
         try {
             console.log("trying");
-            const result = await fetch("https://wichword-backend.onrender.com/signup", {
+            // const result = await fetch("https://wichword-backend.onrender.com/signup", {
+            const result = await fetch("http://localhost:8080/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
@@ -31,7 +32,7 @@ const CreateAccount = ({ setUserName, setNickname, setView }) => {
                 setView("StartGame")
             }
         } catch (e) {
-            console.log(e);
+            console.log(e.message);
             setNameTaken("Username is taken");
         }
 
