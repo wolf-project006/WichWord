@@ -1,30 +1,30 @@
-import React, { useEffect } from "react"
+import React, { useEffect } from 'react';
 import '../App.css';
 
 const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
   useEffect(() => {
     const body = {
       userName: userName,
-      currentScore: score
-    }
+      currentScore: score,
+    };
 
     async function patchScore() {
       console.log(score);
       // await fetch("https://wichword-backend.onrender.com/patchHighestScore", {
-      await fetch("http://localhost:8080/highest_users/patchHighestScore", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+      await fetch('http://localhost:8080/patchHighestScore', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      console.log("working!")
+      console.log('working!');
     }
 
     patchScore();
-  }, [])
+  }, []);
 
   function handleOnClick() {
     setScore(0); // Reset score
-    setView("StartGame");
+    setView('StartGame');
   }
 
   return (
