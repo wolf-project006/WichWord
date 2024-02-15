@@ -1,17 +1,16 @@
 require("dotenv").config({ path: "./.env" });
 
-const DB_USER = process.env.DB_USER;
+const DB_USER = "haruki";
 const DB_NAME = "wichword";
 const DB_HOST = "127.0.0.1";
 const DB_PORT = "5432";
-const DB_URL = process.env.DB_URL
+const DB_URL = process.env.DB_URL;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 module.exports = {
-
   development: {
     client: "postgresql",
     connection: DB_URL || {
@@ -19,7 +18,7 @@ module.exports = {
       port: DB_PORT || "5432",
       database: DB_NAME,
       user: DB_USER,
-      password: DB_PASSWORD,
+      password: DB_PASSWORD || "",
     },
     migrations: {
       directory: "./db/migrations",
@@ -46,11 +45,11 @@ module.exports = {
   // },
 
   production: {
-    client: 'postgresql',
+    client: "postgresql",
     connection: process.env.DB_URL,
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
       directory: "./db/migrations",
@@ -58,6 +57,5 @@ module.exports = {
     seeds: {
       directory: "./db/seeds",
     },
-  }
-
+  },
 };
