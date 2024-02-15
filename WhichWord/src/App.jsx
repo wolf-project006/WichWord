@@ -7,6 +7,8 @@ import ScoreScreen from './components/ScoreScreen';
 import Leaderboard from './components/Leaderboard';
 import StartGame from './components/StartGame';
 import Login from './components/Login';
+import BgMusic from "./style/music.mp3"
+import BackgroundMusic from "./components/BackgroundMusic"
 
 function App() {
 
@@ -38,7 +40,8 @@ function App() {
 
   return (
     <>
-      {viewHTML}
+      {viewHTML} 
+      <BackgroundMusic src={BgMusic}/>
     </>
   )
 }

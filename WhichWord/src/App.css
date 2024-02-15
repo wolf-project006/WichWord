@@ -3,6 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: "Chewy", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /* #playerAnswer {
@@ -41,4 +44,18 @@ input:focus {
   position: absolute;
   top: 1em;
   right: 2em;
+}
+
+.timer {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+}
+
+
+.start-game-page {
+  font-family: "Chewy", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2rem;
+
 }

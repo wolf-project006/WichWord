@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons'
+
+
 import '../App.css';
 
 const BaseQuestion = ({
@@ -23,6 +28,8 @@ const BaseQuestion = ({
     border: 'none',
     color: '#EF8354',
   });
+  
+
 
   const weightedHead = 'qjzxvkwyfbghmpduclsntoiraewpfmcosiat';
   const weightedTail = 'qjzxvkwyfbghmpduclsntoiraefloryntdse';
@@ -126,6 +133,7 @@ const BaseQuestion = ({
   return (
     <>
       <p className="nickname">{nickname}</p>
+      <FontAwesomeIcon icon={faHourglassHalf} />
       <p className="timer" >{timeLeft}</p>
       <div>
         <h1 className="letter">{headAndTail[0]}</h1>
