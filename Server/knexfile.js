@@ -14,7 +14,7 @@ module.exports = {
   development: {
     client: "postgresql",
     connection: DB_URL || {
-      host: DB_HOST || "127.0.0.1",
+      host: DB_HOST || "localhost",
       port: DB_PORT || "5432",
       database: DB_NAME,
       user: DB_USER,
