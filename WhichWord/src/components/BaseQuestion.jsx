@@ -67,6 +67,7 @@ const BaseQuestion = ({ score, setScore, view, setView, personalBest, setPersona
     } else {
       interval = setInterval(() => {
         setTimeLeft(timeLeft - 1);
+        console.log(interval)
       }, 1000);
     }
 
@@ -105,7 +106,7 @@ const BaseQuestion = ({ score, setScore, view, setView, personalBest, setPersona
   return (
     <>
       <p className="nickname">{nickname}</p>
-      <p>{timeLeft}</p>
+      <p className="timer" >{timeLeft}</p>
       <div>
         <h1 className="letter">{headAndTail[0]}</h1>
         <input id="playerAnswer" type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} style={inputStyle} />
