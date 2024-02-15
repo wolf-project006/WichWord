@@ -41,17 +41,10 @@ const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
       <h2>{score}</h2>
       {shouldDisplayFireworks && (
         <div>
-          <Firework />
-          <Firework />
-          <Firework />
-          <Firework />
-          <Firework />
-          <Firework />
-          <Firework />
-          <Firework />
-          <Firework />
-          <Firework />
-          <Firework />
+          {[...Array(100)].map((_, index) => (
+            <Firework key={index} />
+          ))}
+          {/* Adjust the number of fireworks (5 in this case) */}
         </div>
       )}
 
