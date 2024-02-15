@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css';
+import Firework from './Firework';
 
 const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
+  const [shouldDisplayFireworks, setShouldDisplayFireworks] = useState(false);
+
   useEffect(() => {
     const body = {
       userName: userName,
@@ -17,6 +20,8 @@ const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
         body: JSON.stringify(body),
       });
       console.log('working!');
+
+      setShouldDisplayFireworks(true);
     }
 
     patchScore();
@@ -25,6 +30,7 @@ const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
   function handleOnClick() {
     setScore(0); // Reset score
     setView('StartGame');
+    setShouldDisplayFireworks(false);
   }
 
   return (
@@ -33,6 +39,21 @@ const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
       <h2>{personalBest}</h2>
       <h1>Score:</h1>
       <h2>{score}</h2>
+      {shouldDisplayFireworks && (
+        <div>
+          <Firework />
+          <Firework />
+          <Firework />
+          <Firework />
+          <Firework />
+          <Firework />
+          <Firework />
+          <Firework />
+          <Firework />
+          <Firework />
+          <Firework />
+        </div>
+      )}
 
       <button onClick={handleOnClick}>Start over</button>
     </>

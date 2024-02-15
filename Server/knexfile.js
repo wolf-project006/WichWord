@@ -1,9 +1,9 @@
-require("dotenv").config({ path: "./.env" });
+require('dotenv').config({ path: './.env' });
 
-const DB_USER = "haruki";
-const DB_NAME = "wichword";
-const DB_HOST = "127.0.0.1";
-const DB_PORT = "5432";
+const DB_USER = 'haruki';
+const DB_NAME = 'wichword';
+const DB_HOST = '127.0.0.1';
+const DB_PORT = '5432';
 const DB_URL = process.env.DB_URL;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 
@@ -12,19 +12,19 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
  */
 module.exports = {
   development: {
-    client: "postgresql",
+    client: 'postgresql',
     connection: DB_URL || {
-      host: DB_HOST || "127.0.0.1",
-      port: DB_PORT || "5432",
+      host: DB_HOST || '127.0.0.1',
+      port: DB_PORT || '5432',
       database: DB_NAME,
       user: DB_USER,
-      password: DB_PASSWORD || "",
+      password: DB_PASSWORD || '',
     },
     migrations: {
-      directory: "./db/migrations",
+      directory: './db/migrations',
     },
     seeds: {
-      directory: "./db/seeds",
+      directory: './db/seeds',
     },
   },
 
@@ -45,17 +45,17 @@ module.exports = {
   // },
 
   production: {
-    client: "postgresql",
+    client: 'postgresql',
     connection: process.env.DB_URL,
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
-      directory: "./db/migrations",
+      directory: './db/migrations',
     },
     seeds: {
-      directory: "./db/seeds",
+      directory: './db/seeds',
     },
   },
 };
