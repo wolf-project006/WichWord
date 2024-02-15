@@ -10,7 +10,8 @@ const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
 
     async function patchScore() {
       console.log(score);
-      await fetch("https://wichword-backend.onrender.com/patchHighestScore", {
+      // await fetch("https://wichword-backend.onrender.com/patchHighestScore", {
+      await fetch("http://localhost:8080/highest_users/patchHighestScore", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
