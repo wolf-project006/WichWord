@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faCrown } from '@fortawesome/free-solid-svg-icons'
+
 import '../App.css';
+import Firework from './Firework';
 
 const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
+  const [shouldDisplayFireworks, setShouldDisplayFireworks] = useState(false);
+
   useEffect(() => {
     const body = {
       userName: userName,
@@ -19,6 +23,8 @@ const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
         body: JSON.stringify(body),
       });
       console.log('working!');
+
+      setShouldDisplayFireworks(true);
     }
 
     patchScore();
@@ -27,6 +33,7 @@ const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
   function handleOnClick() {
     setScore(0); // Reset score
     setView('StartGame');
+    setShouldDisplayFireworks(false);
   }
 
   return (
@@ -36,6 +43,13 @@ const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
       <h1>Score:</h1>
       <h2><FontAwesomeIcon icon={faThumbsUp} style={{ paddingRight: "5px" }} />
     <span style={{ paddingLeft: '10px' }}>{score}</span></h2>
+      {shouldDisplayFireworks && (
+        <div>
+          {[...Array(100)].map((_, index) => (
+            <Firework key={index} />
+          ))}
+        </div>
+      )}
 
       <button onClick={handleOnClick}>Start over</button>
     </>
