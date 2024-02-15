@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp, faCrown } from '@fortawesome/free-solid-svg-icons'
 import '../App.css';
 
 const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
@@ -30,9 +32,10 @@ const ScoreScreen = ({ userName, score, setScore, setView, personalBest }) => {
   return (
     <>
       <h1>Personal Best:</h1>
-      <h2>{personalBest}</h2>
+      <h2><FontAwesomeIcon icon={faCrown} style={{ paddingRight: "5px" }}/><span style={{ paddingLeft: '10px' }}>{personalBest}</span></h2>
       <h1>Score:</h1>
-      <h2>{score}</h2>
+      <h2><FontAwesomeIcon icon={faThumbsUp} style={{ paddingRight: "5px" }} />
+    <span style={{ paddingLeft: '10px' }}>{score}</span></h2>
 
       <button onClick={handleOnClick}>Start over</button>
     </>
